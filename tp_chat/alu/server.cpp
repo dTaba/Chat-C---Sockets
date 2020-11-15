@@ -98,8 +98,23 @@ void connection_handler(int socketConectado, vector<Client> &listaClientes) //Fu
                 usuario = listaClientes[i];
             }
         }
+        string str_ListaClientes;
+        if (buf == "/list")
+        {
+            cout << "recibi el comando /list" << endl;
+            for(x = 0; x < listaClientes.size(); x++)
+            {
+                str_ListaClientes = str_ListaClientes + listaClientes[x].usuario +"\n";
+            }
+            send(socketConectado, str_ListaClientes.data(), str_ListaClientes.length(), 0);
+
+        }
+        else
+        {
+            cout  << "Recibi: " << buf << ",  Usuario: " << usuario.nombre << ", Socket: " << socketConectado << endl; 
+        }
         
-        cout  << "Recibi: " << buf << ",  Usuario: " << usuario.nombre << ", Socket: " << socketConectado << endl; 
+        
 
 
         if(listaClientes.size() >= 2) // Verificamos que haya otro cliente al cual reenviar para evitar errores
